@@ -1,0 +1,5 @@
+To run the benchmarks invoke:
+
+sbt11
+run 15 3
+choose the benchmark
