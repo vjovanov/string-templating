@@ -4,7 +4,7 @@ package template
  * Users = 1000
  * Friends = (4 , 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536)
  * Times   = (11, 7, 10, 18, 21, 43 , 84 , 167, 340 , 762 , 1548, 2706, 5659, 11695, 28973)
- * Fused   = (5 , 5, 7 , 14, 17, 39 , 71 , 130, 261 , 530 , 1101, 2214, 5100, 13277, 29876)
+ * Fused   = (9 , 2, 5 , 4 , 7 , 18 , 18 , 47 , 94  , 192 , 452 , 840 , 2308, 4612 , 12307)
  * No quadratic behavior.
  */
 /**
@@ -71,7 +71,7 @@ object UserFriendsXMLL2Fused extends Benchmark {
 
       while (j < ufsize) {
         val fr = u.friends(j)
-        val ffxml = friendToXML(fr)
+        val ffxml = Array[String]("<f>", fr.bunchOfText, "</f>")
         var k = 0
         val ffxmlsize = ffxml.size
         while (k < ffxmlsize) {
