@@ -1,10 +1,11 @@
 package template
 
+case class UserArr(name: String, friends: Array[UserArr], bunchOfText: String)
 /**
  * Users = 1000
  * Friends = (4 , 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536)
  * Times   = (11, 7, 10, 18, 21, 43 , 84 , 167, 340 , 762 , 1548, 2706, 5659, 11695, 28973)
- * Fused   = (9 , 2, 5 , 4 , 7 , 18 , 18 , 47 , 94  , 192 , 452 , 840 , 2308, 4612 , 12307)
+ * Fused   = (7 , 2, 4 , 4 , 8 , 18 , 17 , 53 , 98  , 194 , 459 , 848 , 2320, 4691 , 12332)
  * No quadratic behavior.
  */
 /**
@@ -29,7 +30,6 @@ package template
  *       yield str
  *    }
  */
-
 object UserFriendsXMLL2Fused extends Benchmark {
   def friendToXML(u: User) = Seq("<f>", u.bunchOfText, "</f>")
   def userToXML(u: User) = u.friends.flatMap(friendToXML)
@@ -41,20 +41,20 @@ object UserFriendsXMLL2Fused extends Benchmark {
   println(numberOfFriends)
 
   // user pool for memory reuse
-  var userPool: Seq[User] = Nil
-  var users: Seq[User] = Nil
+  var userPool: Array[UserArr] = new Array[UserArr](0)
+  var users: Array[UserArr] = new Array[UserArr](0)
 
-  def generateUser(friends: Seq[User]) = User("n", friends, "blob")
+  def generateUser(friends: Array[UserArr]) = UserArr("n", friends, "blob")
 
   var testRun = 0
 
   override def setUp = {
     // load the data into the data structure
-    userPool = for (i <- 0 to 2)
-      yield generateUser(for (j <- 0 to numberOfFriends(testRun)) yield generateUser(Nil))
+    userPool = (for (i <- (0 to 2))
+      yield generateUser((for (j <- 0 to numberOfFriends(testRun)) yield generateUser(new Array[UserArr](0))).toArray)).toArray
 
-    users = for (i <- 0 to numberOfUsers)
-      yield userPool(i % userPool.size)
+    users = (for (i <- (0 to numberOfUsers))
+      yield userPool(i % userPool.size)).toArray
     testRun += 1
 
     super.setUp()

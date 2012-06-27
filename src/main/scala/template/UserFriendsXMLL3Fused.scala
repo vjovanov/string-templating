@@ -6,7 +6,7 @@ package template
  * Friends' Friends: 100
  * Friends         : 2  , 4 , 8 , 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768
  * Time            : 4  , 6 , 8 , 16, 24, 46, 57 , 133, 239, 484 , 904 , 1782, 3607, 7584 , 15531
- * Time Fused      : 1  , 1 , 2 , 3 , 5 , 9 , 17 , 43 , 72 , 147 , 279 , 556 , 772 , 2406 , 3665
+ * Time Fused      : 1  , 1 , 1 , 3 , 4 , 9 , 18 , 36 , 71 , 142 , 288 , 548 , 781 , 2445 , 3820
  * No quadratic speedup with data size in experiments. Maybe we have quadratic speedup with the level of nesting.
  *
  * Users
@@ -52,22 +52,23 @@ object UserFriendsXMLL3Fused extends Benchmark {
 
   println(numberOfFriends)
   // user pool for memory reuse
-  var userPool: Seq[User] = Nil
-  var users: Seq[User] = Nil
+  // user pool for memory reuse
+  var userPool: Array[UserArr] = new Array[UserArr](0)
+  var users: Array[UserArr] = new Array[UserArr](0)
 
-  def generateUser(friends: Seq[User]) = User("n", friends, "blob")
+  def generateUser(friends: Array[UserArr]) = UserArr("n", friends, "blob")
 
   var testRun = 0
 
   override def setUp = {
     // load the data into the data structure
-    userPool = for (i <- 0 to 2)
-      yield generateUser(for (j <- 0 to numberOfFriends(testRun))
-      yield generateUser(for (k <- 0 to numberOfFFriends(testRun))
-      yield generateUser(Nil)))
+    userPool = (for (i <- 0 to 2)
+      yield generateUser((for (j <- 0 to numberOfFriends(testRun))
+      yield generateUser((for (k <- 0 to numberOfFFriends(testRun))
+      yield generateUser(new Array(0))).toArray)).toArray)).toArray
 
-    users = for (i <- 0 to numberOfUsers)
-      yield userPool(i % userPool.size)
+    users = (for (i <- 0 to numberOfUsers)
+      yield userPool(i % userPool.size)).toArray
     testRun += 1
 
     super.setUp()
