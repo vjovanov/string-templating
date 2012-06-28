@@ -6,7 +6,7 @@ package template
  * Users           : 10
  * Friends' Friends: 100
  * Friends         : 2  , 4 , 8 , 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768
- * Time            : 4  , 6 , 8 , 16, 24, 46, 57 , 133, 239, 484 , 904 , 1782, 3607, 7584 , 15531
+ * Time            : 4  , 7 , 11, 15, 28, 43, 81 , 168, 344, 670 , 930 , 1823, 3548, 7531 , 15244
  * No quadratic speedup in experiments.
  *
  * Users
@@ -37,10 +37,7 @@ package template
  *
  * Each piece of data is traversed only once.
  */
-object UserFriendsXMLL3 extends Benchmark {
-  def friendOfFriendXML(u: User) = Seq("<f>", u.bunchOfText, "</f>")
-  def friendToXML(u: User) =  u.friends.flatMap(friendOfFriendXML(_))
-  def userToXML(u: User) = u.friends.flatMap(friendToXML)
+object UserFriendsXMLL3 extends UserGeneration with Benchmark {
 
   // config
   val numberOfUsers = 10
@@ -54,8 +51,6 @@ object UserFriendsXMLL3 extends Benchmark {
   // user pool for memory reuse
   var userPool: Seq[User] = Nil
   var users: Seq[User] = Nil
-
-  def generateUser(friends: Seq[User]) = User("n", friends, "blob")
 
   var testRun = 0
 

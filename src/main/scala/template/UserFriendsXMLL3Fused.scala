@@ -5,8 +5,9 @@ package template
  * Users           : 10
  * Friends' Friends: 100
  * Friends         : 2  , 4 , 8 , 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768
- * Time            : 4  , 6 , 8 , 16, 24, 46, 57 , 133, 239, 484 , 904 , 1782, 3607, 7584 , 15531
- * Time Fused      : 1  , 1 , 1 , 3 , 4 , 9 , 18 , 36 , 71 , 142 , 288 , 548 , 781 , 2445 , 3820
+ * Time            : 4  , 7 , 11, 15, 28, 43, 81 , 168, 344, 670 , 930 , 1823, 3548, 7531 , 15244
+ * Time Fused      : 0  , 1 , 1 , 3 , 7 , 9 , 18 , 35 , 70 , 139 , 278 , 557 , 776 , 2436 , 3757
+
  * No quadratic speedup with data size in experiments. Maybe we have quadratic speedup with the level of nesting.
  *
  * Users
@@ -17,30 +18,36 @@ package template
  *        for(fr <- u.friends) {
  *          val y =
  *            for (ffr <- fr.friends)
- *              for (txt <- friendOfFriendXML(ffr))
+ *              for (txt <- Seq("<ffriend>", ffr.bunchOfText, "</ffriend>"))
  *                yield txt
  *
- *          for (frstxt <- y)
+ *          for (frstxt <- Seq("<ffriend>") ++ y ++ Seq("<\ffriend>"))
  *            yield frstxt
  *         }
  *
- *       for (txt <- x)
+ *       for (txt <- Seq("<friend>") ++ x ++ Seq("<\friend>")
  *         yield txt
  *     }
+ *  Seq("<user>") ++ res ++ Seq("</user>")
  *
  * Fused:
- *  for (u <- users) {
- *    for (fr <- users.friends)
- *      for (ffr <- fr.friends)
- *        for(txt <- friendOfFriendXML(ffr))
- *          yield txt
+ *  val res = ArrayBuffer[String]()
+ *  for (u <- users + 2) {
+ *    res += "<user>"
+ *    for(fr <- u.friends) {
+ *      res += "<friend>"
+ *      for (ffr <- fr.friends) {
+ *        res += "<ffriend>"
+ *        res += "ffr.bunchOfText"
+ *        res += "</ffriend>"
+ *      }
+ *      res += "<\friend>"
+ *    }
+ *    res += "</user>"
+ *  }
  *
- * Each piece of data is traversed only once.
  */
-object UserFriendsXMLL3Fused extends Benchmark {
-  def friendOfFriendXML(u: User) = Seq("<f>", u.bunchOfText, "</f>")
-  def friendToXML(u: User) = u.friends.flatMap(friendOfFriendXML(_))
-  def userToXML(u: User) = u.friends.flatMap(friendToXML)
+object UserFriendsXMLL3Fused extends UserGeneration with Benchmark {
 
   // config
   val numberOfUsers = 10
@@ -52,20 +59,18 @@ object UserFriendsXMLL3Fused extends Benchmark {
 
   println(numberOfFriends)
   // user pool for memory reuse
-  // user pool for memory reuse
   var userPool: Array[UserArr] = new Array[UserArr](0)
   var users: Array[UserArr] = new Array[UserArr](0)
 
-  def generateUser(friends: Array[UserArr]) = UserArr("n", friends, "blob")
 
   var testRun = 0
 
   override def setUp = {
     // load the data into the data structure
     userPool = (for (i <- 0 to 2)
-      yield generateUser((for (j <- 0 to numberOfFriends(testRun))
-      yield generateUser((for (k <- 0 to numberOfFFriends(testRun))
-      yield generateUser(new Array(0))).toArray)).toArray)).toArray
+      yield generateUserArr((for (j <- 0 to numberOfFriends(testRun))
+      yield generateUserArr((for (k <- 0 to numberOfFFriends(testRun))
+      yield generateUserArr(new Array(0))).toArray)).toArray)).toArray
 
     users = (for (i <- 0 to numberOfUsers)
       yield userPool(i % userPool.size)).toArray
@@ -82,24 +87,23 @@ object UserFriendsXMLL3Fused extends Benchmark {
       val u = users(i)
       var j = 0
       val ufsize = u.friends.size
-
+      userPre(buf)
       while (j < ufsize) {
         val fr = u.friends(j)
         var k = 0
         val ffsize = fr.friends.size
+        friendPre(buf)
         while (k < ffsize) {
           val frfr = fr.friends(k)
-          val ffxml = Array[String]("<f>", frfr.bunchOfText, "</f>")
-          var l = 0
-          val ffxmlsize = ffxml.size
-          while (l < ffxmlsize) {
-            buf += ffxml(l)
-            l += 1
-          }
+          fFriendPre(buf)
+          buf += frfr.bunchOfText
+          fFriendPost(buf)
           k += 1
         }
+        friendPost(buf)
         j += 1
       }
+      userPost(buf)
       i += 1
     }
     buf

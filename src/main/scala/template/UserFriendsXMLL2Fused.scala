@@ -4,8 +4,8 @@ case class UserArr(name: String, friends: Array[UserArr], bunchOfText: String)
 /**
  * Users = 1000
  * Friends = (4 , 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536)
- * Times   = (11, 7, 10, 18, 21, 43 , 84 , 167, 340 , 762 , 1548, 2706, 5659, 11695, 28973)
- * Fused   = (7 , 2, 4 , 4 , 8 , 18 , 17 , 53 , 98  , 194 , 459 , 848 , 2320, 4691 , 12332)
+ * Times   = (10, 8, 12, 17, 22, 45 , 87 , 180, 351 , 704 , 1419, 2893, 5811 , 12200, 29384)
+ * Fused   = (7 , 2, 4 , 4 , 7 , 18 , 19 , 50 , 97  , 193 , 456 , 851 , 2370 , 4694 , 12234)
  * No quadratic behavior.
  */
 /**
@@ -17,7 +17,7 @@ case class UserArr(name: String, friends: Array[UserArr], bunchOfText: String)
  *        for (friendXML <- friendToXML(friend))
  *          yield friendXML
  *
- *    for (str <- frindsXML)
+ *    for (str <- friendsXML)
  *      yield str
  *  }
  */
@@ -30,9 +30,7 @@ case class UserArr(name: String, friends: Array[UserArr], bunchOfText: String)
  *       yield str
  *    }
  */
-object UserFriendsXMLL2Fused extends Benchmark {
-  def friendToXML(u: User) = Seq("<f>", u.bunchOfText, "</f>")
-  def userToXML(u: User) = u.friends.flatMap(friendToXML)
+object UserFriendsXMLL2Fused extends UserGeneration with Benchmark {
 
   // config
   val numberOfUsers = 1000
@@ -44,14 +42,13 @@ object UserFriendsXMLL2Fused extends Benchmark {
   var userPool: Array[UserArr] = new Array[UserArr](0)
   var users: Array[UserArr] = new Array[UserArr](0)
 
-  def generateUser(friends: Array[UserArr]) = UserArr("n", friends, "blob")
 
   var testRun = 0
 
   override def setUp = {
     // load the data into the data structure
     userPool = (for (i <- (0 to 2))
-      yield generateUser((for (j <- 0 to numberOfFriends(testRun)) yield generateUser(new Array[UserArr](0))).toArray)).toArray
+      yield generateUserArr((for (j <- 0 to numberOfFriends(testRun)) yield generateUserArr(new Array[UserArr](0))).toArray)).toArray
 
     users = (for (i <- (0 to numberOfUsers))
       yield userPool(i % userPool.size)).toArray
@@ -68,18 +65,15 @@ object UserFriendsXMLL2Fused extends Benchmark {
       val u = users(i)
       var j = 0
       val ufsize = u.friends.size
-
+      userPre(buf)
       while (j < ufsize) {
         val fr = u.friends(j)
-        val ffxml = Array[String]("<f>", fr.bunchOfText, "</f>")
-        var k = 0
-        val ffxmlsize = ffxml.size
-        while (k < ffxmlsize) {
-          buf += ffxml(k)
-          k += 1
-        }
+        friendPre(buf)
+        buf += fr.bunchOfText
+        friendPost(buf)
         j += 1
       }
+      userPost(buf)
       i += 1
     }
     buf
