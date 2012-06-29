@@ -51,26 +51,21 @@ object UserFriendsXMLL3Fused extends UserGeneration with Benchmark {
 
   // config
   val numberOfUsers = 10
-  val baseNumberOfFriends = 2
-  val numberOfFriends =
-    (0 to 15).map(x => baseNumberOfFriends * scala.math.pow(2, x).toInt)
-  val numberOfFFriends =
-    Seq.fill(15)(100)
+  val numberOfFriends = (0 to 20).map(x => baseNumberOfFriends * scala.math.pow(2, x).toInt)
+  val numberOfFFriends = Seq.fill(20)(100)
 
   println(numberOfFriends)
   // user pool for memory reuse
-  var userPool: Array[UserArr] = new Array[UserArr](0)
-  var users: Array[UserArr] = new Array[UserArr](0)
+  var userPool: Array[User] = new Array[User](0)
+  var users: Array[User] = new Array[User](0)
 
-
-  var testRun = 0
 
   override def setUp = {
     // load the data into the data structure
     userPool = (for (i <- 0 to 2)
-      yield generateUserArr((for (j <- 0 to numberOfFriends(testRun))
-      yield generateUserArr((for (k <- 0 to numberOfFFriends(testRun))
-      yield generateUserArr(new Array(0))).toArray)).toArray)).toArray
+      yield generateUser((for (j <- 0 to numberOfFriends(testRun))
+      yield generateUser((for (k <- 0 to numberOfFFriends(testRun))
+      yield generateUser(new Array[User](0))))))).toArray
 
     users = (for (i <- 0 to numberOfUsers)
       yield userPool(i % userPool.size)).toArray
@@ -87,12 +82,12 @@ object UserFriendsXMLL3Fused extends UserGeneration with Benchmark {
       val u = users(i)
       var j = 0
       val ufsize = u.friends.size
-      userPre(buf)
+      userPre(buf, u)
       while (j < ufsize) {
         val fr = u.friends(j)
         var k = 0
         val ffsize = fr.friends.size
-        friendPre(buf)
+        friendPre(buf, fr)
         while (k < ffsize) {
           val frfr = fr.friends(k)
           fFriendPre(buf)

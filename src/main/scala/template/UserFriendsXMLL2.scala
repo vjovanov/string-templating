@@ -1,5 +1,4 @@
 package template
-case class User(name: String, friends: Seq[User], bunchOfText: String)
 
 /**
  * Users = 1000
@@ -76,31 +75,37 @@ object UserFriendsXMLL2 extends UserGeneration with Benchmark {
 
   // config
   val numberOfUsers = 1000
-  val baseNumberOfFriends = 4
-  val numberOfFriends = (0 to 15).map(x => baseNumberOfFriends * scala.math.pow(2, x).toInt)
+  var numberOfFriends = (1 to 20).map(x => baseNumberOfFriends * scala.math.pow(2, x).toInt)
   println(numberOfFriends)
 
   // user pool for memory reuse
-  var userPool: Seq[User] = Nil
-  var users: Seq[User] = Nil
+  var userPool: Array[User] = null
+  var users: Array[User] = null
 
-  var testRun = 0
+  var res: Array[String] = null
 
   override def setUp = {
     // load the data into the data structure
-    userPool = for (i <- 0 to 2)
-      yield generateUser(for (j <- 0 to numberOfFriends(testRun)) yield generateUser(Nil))
+    userPool = (for (i <- 0 to 2)
+      yield generateUser((for (j <- 0 to numberOfFriends(testRun)) yield generateUser(new Array[User](0))))).toArray
 
-    users = for (i <- 0 to numberOfUsers)
-      yield userPool(i % userPool.size)
+    users = (for (i <- 0 to numberOfUsers)
+      yield userPool(i % userPool.size)).toArray
     testRun += 1
 
     super.setUp()
+    println("Friend:" + users.head.friends.head)
+    res = Array[String]()
   }
 
   def run = {
-    val x = users.flatMap(userToXML)
+    res = users.flatMap(userToXML)
   }
 
+  override def tearDown = {
+    super.tearDown
+    println("Result:")
+    res.take(20).foreach(print)
+    println
+  }
 }
-

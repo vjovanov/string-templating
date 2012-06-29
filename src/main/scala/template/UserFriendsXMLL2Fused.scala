@@ -1,6 +1,5 @@
 package template
 
-case class UserArr(name: String, friends: Array[UserArr], bunchOfText: String)
 /**
  * Users = 1000
  * Friends = (4 , 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536)
@@ -34,21 +33,21 @@ object UserFriendsXMLL2Fused extends UserGeneration with Benchmark {
 
   // config
   val numberOfUsers = 1000
-  val baseNumberOfFriends = 4
-  val numberOfFriends = (0 to 15).map(x => baseNumberOfFriends * scala.math.pow(2, x).toInt)
+  val numberOfFriends = (1 to 20).map(x => baseNumberOfFriends * scala.math.pow(2, x).toInt)
   println(numberOfFriends)
 
   // user pool for memory reuse
-  var userPool: Array[UserArr] = new Array[UserArr](0)
-  var users: Array[UserArr] = new Array[UserArr](0)
+  var userPool: Array[User] = new Array[User](0)
+  var users: Array[User] = new Array[User](0)
 
-
-  var testRun = 0
 
   override def setUp = {
     // load the data into the data structure
     userPool = (for (i <- (0 to 2))
-      yield generateUserArr((for (j <- 0 to numberOfFriends(testRun)) yield generateUserArr(new Array[UserArr](0))).toArray)).toArray
+      yield generateUser(
+          (for (j <- 0 to numberOfFriends(testRun)) 
+            yield generateUser(
+                new Array[User](0))))).toArray
 
     users = (for (i <- (0 to numberOfUsers))
       yield userPool(i % userPool.size)).toArray
@@ -65,10 +64,10 @@ object UserFriendsXMLL2Fused extends UserGeneration with Benchmark {
       val u = users(i)
       var j = 0
       val ufsize = u.friends.size
-      userPre(buf)
+      userPre(buf,u)
       while (j < ufsize) {
         val fr = u.friends(j)
-        friendPre(buf)
+        friendPre(buf, fr)
         buf += fr.bunchOfText
         friendPost(buf)
         j += 1

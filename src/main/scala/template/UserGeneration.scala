@@ -1,21 +1,36 @@
 package template
 import scala.collection.mutable.ArrayBuffer
 
+case class User(name: String, friends: Array[User], bunchOfText: String) {
+  override def toString = "n:" + name.take(5) + "  f:" + friends.size + "  t:" + bunchOfText.take(5)
+}
+
 trait UserGeneration {
   @inline
-  final def friendOfFriendXML(u: User) = Seq("<ffriend>", u.bunchOfText, "</ffriend>")
+  final def friendOfFriendXML(u: User) = Array("<ffriend>", u.bunchOfText, "</ffriend>")
 
   @inline
-  final def friendToXML(u: User) = Seq("<friend>") ++  u.friends.flatMap(friendOfFriendXML(_)) ++ Seq("</friend>")
+  final def friendToXML(u: User) = Array("<friend>", "<name>", u.name, "</name>", "<friends>") ++ u.friends.flatMap(friendOfFriendXML(_)) ++ Array("</friends>", "</friend>")
 
   @inline
-  final def userToXML(u: User) = Seq("<user><name>", u.name, "</name>", "<friends>") ++ u.friends.flatMap(friendToXML) ++ Seq("</friends></user>")
+  final def userToXML(u: User) = Array("<user>", "<name>", u.name, "</name>", "<friends>") ++ u.friends.flatMap(friendToXML) ++ Array("</friends></user>")
 
-  final def friendPre(b: ArrayBuffer[String]) = b += "<friend>"
-  final def friendPost(b: ArrayBuffer[String]) = b += "<\friend>"
+  val baseNumberOfFriends = 2
+
+  final def friendPre(b: ArrayBuffer[String], u: User) = {
+    b += "<friend>"
+    b += "<name>"
+    b += u.name
+    b += "</name>"
+    b += "<friends>"
+  }
+  final def friendPost(b: ArrayBuffer[String]) = {
+    b += "<\friends>"
+    b += "<\friend>"
+  }
   final def fFriendPre(b: ArrayBuffer[String]) = b += "<ffriend>"
   final def fFriendPost(b: ArrayBuffer[String]) = b += "<\ffriend>"
-  final def userPre(b: ArrayBuffer[String]) = {
+  final def userPre(b: ArrayBuffer[String], u: User) = {
     b += "<user><name>"
     b += u.name
     b += "</name>"
@@ -23,7 +38,6 @@ trait UserGeneration {
   }
   final def userPost(b: ArrayBuffer[String]) = b += "</friends></user>"
 
-  def generateUser(friends: Seq[User]) = User(scala.util.Random.nextString(10), friends, scala.util.Random.nextString(50))
-
-  def generateUserArr(friends: Array[User]) = UserArr(scala.util.Random.nextString(10), friends, scala.util.Random.nextString(50))
+  def generateUser(friends: IndexedSeq[User]) = User(scala.util.Random.nextString(10), friends.toArray, scala.util.Random.nextString(5000))
 }
+

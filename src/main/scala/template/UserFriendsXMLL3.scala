@@ -41,28 +41,24 @@ object UserFriendsXMLL3 extends UserGeneration with Benchmark {
 
   // config
   val numberOfUsers = 10
-  val baseNumberOfFriends = 2
-  val numberOfFriends  =
-    (0 to 15).map(x => baseNumberOfFriends * scala.math.pow(2, x).toInt)
-  val numberOfFFriends =
-    Seq.fill(15)(100)
+  val numberOfFriends  = (0 to 20).map(x => baseNumberOfFriends * scala.math.pow(2, x).toInt)
+  val numberOfFFriends = Seq.fill(15)(100)
 
   println(numberOfFriends)
   // user pool for memory reuse
-  var userPool: Seq[User] = Nil
-  var users: Seq[User] = Nil
+  var userPool: Array[User] = null
+  var users: Array[User] = null
 
-  var testRun = 0
 
   override def setUp = {
     // load the data into the data structure
-    userPool = for (i <- 0 to 2)
-      yield generateUser(for (j <- 0 to numberOfFriends(testRun)) 
+    userPool = (for (i <- 0 to 2)
+      yield generateUser((for (j <- 0 to numberOfFriends(testRun)) 
         yield generateUser(for (k <- 0 to numberOfFFriends(testRun))
-          yield generateUser(Nil)))
+          yield generateUser(new Array[User](0)))))).toArray
 
-    users = for (i <- 0 to numberOfUsers)
-      yield userPool(i % userPool.size)
+    users = (for (i <- 0 to numberOfUsers)
+      yield userPool(i % userPool.size)).toArray
     testRun += 1
 
     super.setUp()

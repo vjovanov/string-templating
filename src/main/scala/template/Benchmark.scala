@@ -57,22 +57,23 @@ trait Benchmark {
    */
   def runBenchmark(noTimes: Int): List[Long] =
     for (i <- List.range(1, noTimes + 1)) yield {
-      setUp
+      /*setUp
       // warmup
-      var i = 0; while (i < 5) {
+      var i = 0; while (i < 3) {
         run()
         i += 1
       }
+      tearDown*/
 
+      Platform.collectGarbage()
+      setUp
       val startTime = Platform.currentTime
-      i = 0; while (i < multiplier) {
+      var i = 0; while (i < multiplier) {
         run()
         i += 1
       }
       val stopTime = Platform.currentTime
       tearDown
-      Platform.collectGarbage
-
       stopTime - startTime
     }
 
@@ -97,6 +98,10 @@ trait Benchmark {
    */
   def prefix: String = getClass().getName()
 
+  var cases = -1
+
+  var testRun = 1
+
   /**
    * The entry point. It takes two arguments:
    * - argument `n` is the number of consecutive runs
@@ -106,9 +111,10 @@ trait Benchmark {
   def main(args: Array[String]) {
     if (args.length > 0) {
       val logFile = new java.io.OutputStreamWriter(System.out)
+      cases = args(0).toInt
       if (args.length > 1) multiplier = args(1).toInt
-      logFile.write(prefix)
-      for (t <- runBenchmark(args(0).toInt))
+      println("------- Running " + prefix + " for " + cases + " cases "  + ", " + multiplier + " times each ----------------")      
+      for (t <- runBenchmark(cases))
         logFile.write("\t" + t)
 
       logFile.write(Platform.EOL)
