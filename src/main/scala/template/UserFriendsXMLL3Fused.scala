@@ -72,6 +72,7 @@ object UserFriendsXMLL3Fused extends UserGeneration with Benchmark {
     testRun += 1
 
     super.setUp()
+    res.clear()
   }
 
   def run = {
@@ -102,5 +103,11 @@ object UserFriendsXMLL3Fused extends UserGeneration with Benchmark {
       i += 1
     }
     buf
+    res = buf
+  }
+
+  override def tearDown() = {
+    super.tearDown()
+    println(res.hashCode())
   }
 }

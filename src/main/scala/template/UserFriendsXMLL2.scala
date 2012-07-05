@@ -82,8 +82,6 @@ object UserFriendsXMLL2 extends UserGeneration with Benchmark {
   var userPool: Array[User] = null
   var users: Array[User] = null
 
-  var res: Array[String] = null
-
   override def setUp = {
     // load the data into the data structure
     userPool = (for (i <- 0 to 2)
@@ -94,18 +92,10 @@ object UserFriendsXMLL2 extends UserGeneration with Benchmark {
     testRun += 1
 
     super.setUp()
-    println("Friend:" + users.head.friends.head)
-    res = Array[String]()
   }
 
   def run = {
-    res = users.flatMap(userToXML)
+    users.flatMap(friend3ToXML)
   }
 
-  override def tearDown = {
-    super.tearDown
-    println("Result:")
-    res.take(20).foreach(print)
-    println
-  }
 }
