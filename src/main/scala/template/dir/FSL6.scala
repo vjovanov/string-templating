@@ -42,8 +42,8 @@ class FSL6 extends SimpleScalaBenchmark with FileTemplates with Input {
 
   override def setUp() {
     if (file == null)
-      //      file = parse("/tmp/fs")
-      file = parseIdealTree(2)
+          file = parse("/tmp/fs")
+      //file = parseIdealTree(2)
     println(file)
   }
 
