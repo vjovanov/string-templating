@@ -1,5 +1,7 @@
 To run the benchmarks invoke:
 
 sbt11
-run 15 3
-choose the benchmark
+run
+Choose one of the benchmarks
+
+Results on tflop1 are in results-tflop.ods
