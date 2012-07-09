@@ -42,8 +42,8 @@ class LMS6 extends SimpleScalaBenchmark with FileTemplates with Input {
 
   override def setUp() {
     if (file == null)
-      file = parse("/tmp/fs")
-    //      file = parseIdealTree(2)
+        file = parse("/home/vojin/fs")
+//      file = parseIdealTree(2)
   }
 
   /**
