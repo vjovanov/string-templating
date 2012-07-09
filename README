@@ -4,4 +4,4 @@ sbt11
 run
 Choose one of the benchmarks
 
-Results on tflop1 are in results-tflop.ods
+Results for tflop1 are in file: results-tflop.ods
