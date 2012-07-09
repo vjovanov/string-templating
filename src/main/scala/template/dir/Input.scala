@@ -31,22 +31,22 @@ trait Input {
 
 trait FileTemplates {
   @inline
-  final def f1(f: SimpleFile) = Array("""<a href="""", f.path, "\">", f.name, "</a>") ++ f.files.flatMap(f2(_))
+  final def f1(f: SimpleFile) = Array("""<a href="""", f.path, "\">", f.name, "</a></br>") ++ f.files.flatMap(f2(_))
 
   @inline
-  final def f2(f: SimpleFile) = Array("""-&nbsp;<a href="""", f.path, "\">", f.name, "</a>") ++ f.files.flatMap(f3(_)) 
+  final def f2(f: SimpleFile) = Array("""-&nbsp;<a href="""", f.path, "\">", f.name, "</a></br>") ++ f.files.flatMap(f3(_)) 
 
   @inline
-  final def f3(f: SimpleFile) = Array("""-&nbsp;-&nbsp;<a href="""", f.path, "\">", f.name, "</a>") ++ f.files.flatMap(f4(_))
+  final def f3(f: SimpleFile) = Array("""-&nbsp;-&nbsp;<a href="""", f.path, "\">", f.name, "</a></br>") ++ f.files.flatMap(f4(_))
 
   @inline
-  final def f4(f: SimpleFile) = Array("""-&nbsp;-&nbsp;-&nbsp;<a href="""", f.path, "\">", f.name, "</a>") ++ f.files.flatMap(f5(_))
+  final def f4(f: SimpleFile) = Array("""-&nbsp;-&nbsp;-&nbsp;<a href="""", f.path, "\">", f.name, "</a></br>") ++ f.files.flatMap(f5(_))
 
   @inline
-  final def f5(f: SimpleFile) = Array("""-&nbsp;-&nbsp;-&nbsp;-&nbsp;<a href="""", f.path, "\">", f.name, "</a>") ++ f.files.flatMap(f6(_))
+  final def f5(f: SimpleFile) = Array("""-&nbsp;-&nbsp;-&nbsp;-&nbsp;<a href="""", f.path, "\">", f.name, "</a></br>") ++ f.files.flatMap(f6(_))
 
   @inline
-  final def f6(f: SimpleFile) = Array("""-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;<a href="""", f.path, "\">", f.name, "</a>")
+  final def f6(f: SimpleFile) = Array("""-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;<a href="""", f.path, "\">", f.name, "</a></br>")
 
   @inline
   final def f1Pre(b: ArrayBuffer[String], f: SimpleFile) = {
