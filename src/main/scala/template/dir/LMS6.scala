@@ -51,7 +51,7 @@ class LMS6 extends SimpleScalaBenchmark with FileTemplates with Input {
    * Emitting Generated Code
    * *****************************************
    */
-  def time1(reps: Int) = repeat(reps) {
+  def timeL6(reps: Int) = repeat(reps) {
     val x2 = Array("<html><body>")
     val x133 = Array("</body></html>")
     val x1 = file
@@ -175,7 +175,7 @@ class LMS6 extends SimpleScalaBenchmark with FileTemplates with Input {
     x151
   }
 
-  def time2(reps: Int) = repeat(reps) {
+  def timeL5(reps: Int) = repeat(reps) {
 
     val x2 = Array("<html><body>")
     val x133 = Array("</body></html>")
@@ -270,7 +270,7 @@ class LMS6 extends SimpleScalaBenchmark with FileTemplates with Input {
     x467
   }
 
-  def time3(reps: Int) = repeat(reps) {
+  def timeL4(reps: Int) = repeat(reps) {
 
     val x2 = Array("<html><body>")
     val x133 = Array("</body></html>")
@@ -344,7 +344,7 @@ class LMS6 extends SimpleScalaBenchmark with FileTemplates with Input {
     x709
   }
 
-  def time4(reps: Int) = repeat(reps) {
+  def timeL3(reps: Int) = repeat(reps) {
 
     val x2 = Array("<html><body>")
     val x133 = Array("</body></html>")
@@ -397,7 +397,7 @@ class LMS6 extends SimpleScalaBenchmark with FileTemplates with Input {
     x877
   }
 
-  def time5(reps: Int) = repeat(reps) {
+  def timeL2(reps: Int) = repeat(reps) {
 
     val x2 = Array("<html><body>")
     val x133 = Array("</body></html>")
@@ -413,7 +413,7 @@ class LMS6 extends SimpleScalaBenchmark with FileTemplates with Input {
       val x934 = x13.apply(x932)
       val x935 = x934.path
       val x936 = x934.name
-      val x937 = Array("-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;<a href='", x935, "'>", x936, "</a><br/>")
+      /*val x937 = Array("-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;<a href='", x935, "'>", x936, "</a><br/>")
       val x961 = x937.length
       var x946 = 0
       while (x946 < x961) {
@@ -422,7 +422,13 @@ class LMS6 extends SimpleScalaBenchmark with FileTemplates with Input {
         x971_buff += x962
         val x963 = ()
         x946 += 1
-      }
+      }*/
+      x971_buff += "-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;<a href='"
+      x971_buff += x3
+      x971_buff += "'>"
+      x971_buff += x4
+      x971_buff += "</a><br/>"
+      
       x932 += 1
     }
     val x971 = x971_buff.result
