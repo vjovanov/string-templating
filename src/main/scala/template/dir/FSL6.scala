@@ -220,20 +220,20 @@ class FSL6 extends SimpleScalaBenchmark with FileTemplates with Input {
     b
   }
 
-  def timeL1(reps: Int) = repeat(reps) {
-    val res = Array("""<html><body>""") ++ f6(file) ++ Array("""</body></html>""")
-    L1 = res.toArray
-  }
-
-  def timeL1Fused(reps: Int) = repeat(reps) {
-    val b = new scala.collection.mutable.ArrayBuffer[String]
-    b += """<html><body>"""
-
-    val f5 = file
-    f6Pre(b, f5)
-    L1F = b.toArray
-    b += """</body></html>"""
-    b
-  }
+//  def timeL1(reps: Int) = repeat(reps) {
+//    val res = Array("""<html><body>""") ++ f6(file) ++ Array("""</body></html>""")
+//    L1 = res.toArray
+//  }
+//
+//  def timeL1Fused(reps: Int) = repeat(reps) {
+//    val b = new scala.collection.mutable.ArrayBuffer[String]
+//    b += """<html><body>"""
+//
+//    val f5 = file
+//    f6Pre(b, f5)
+//    L1F = b.toArray
+//    b += """</body></html>"""
+//    b
+//  }
 
 }

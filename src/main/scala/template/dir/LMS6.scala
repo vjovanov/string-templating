@@ -429,7 +429,7 @@ class LMS6 extends SimpleScalaBenchmark with FileTemplates with Input {
     x971
   }
 
-  def time1orig(reps: Int) = repeat(reps) {
+  def timeL6orig(reps: Int) = repeat(reps) {
 
     val x2 = Array("<html><body>")
     val x1 = file
@@ -617,7 +617,7 @@ class LMS6 extends SimpleScalaBenchmark with FileTemplates with Input {
     x134
   }
 
-  def time2orig(reps: Int) = repeat(reps) {
+  def timeL5orig(reps: Int) = repeat(reps) {
 
     val x2 = Array("<html><body>")
     val x133 = Array("</body></html>")
@@ -761,7 +761,7 @@ class LMS6 extends SimpleScalaBenchmark with FileTemplates with Input {
     x233
   }
 
-  def time3orig(reps: Int) = repeat(reps) {
+  def timeL4orig(reps: Int) = repeat(reps) {
 
     val x2 = Array("<html><body>")
     val x133 = Array("</body></html>")
@@ -872,7 +872,7 @@ class LMS6 extends SimpleScalaBenchmark with FileTemplates with Input {
     x308
   }
 
-  def time4orig(reps: Int) = repeat(reps) {
+  def timeL3orig(reps: Int) = repeat(reps) {
 
     val x2 = Array("<html><body>")
     val x133 = Array("</body></html>")
@@ -950,7 +950,7 @@ class LMS6 extends SimpleScalaBenchmark with FileTemplates with Input {
     x359
   }
 
-  def time5orig(reps: Int) = repeat(reps) {
+  def timeL2orig(reps: Int) = repeat(reps) {
     val x2 = Array("<html><body>")
     val x133 = Array("</body></html>")
     val x1 = file
