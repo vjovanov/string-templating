@@ -60,7 +60,8 @@ class IMDBBench extends SimpleScalaBenchmark with FileTemplates with Input {
     Array("prem") ++ movie ++ Array("postm")
   
   def timeImdbTemplate(reps: Int) = repeat(reps) {
-     val res = Array("prep") ++ printMenu(page.menu) ++ Array("inp") ++ printSideMenu(page.sideBar) ++ Array("prem") ++ movies(page.movies)  
+     val res = Array("prep") ++ printMenu(page.menu) ++ Array("inp") ++ printSideMenu(page.sideBar) ++ Array("prem") ++ movies(page.movies)
+     res
   }
 
   /**

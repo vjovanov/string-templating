@@ -53,127 +53,127 @@ class LMS6 extends SimpleScalaBenchmark with FileTemplates with Input {
    */
   def time1(reps: Int) = repeat(reps) {
     val x2 = Array("<html><body>")
-val x133 = Array("</body></html>")
-val x1 = file
-val x13 = x1.files
-val x14 = x13.length
-val x151_buff = new scala.collection.mutable.ArrayBuffer[java.lang.String]
-var x15= 0
-while (x15 < x14) {
-val x17 = x13.apply(x15)
-val x18 = x17.path
-val x19 = x17.name
-val x20 = Array("-&nbsp;<a href='",x18,"'>",x19,"</a><br/>")
-val x155 = x20.length
-var x154= 0
-while (x154 < x155) {
-val x156 = x20.apply(x154)
-// prev yields ArrayBuffer(Sym(127), Sym(143))
-x151_buff += x156
-val x143 = ()
-x154 += 1
-}
-val x21 = x17.files
-val x22 = x21.length
-var x23= 0
-while (x23 < x22) {
-val x25 = x21.apply(x23)
-val x26 = x25.path
-val x27 = x25.name
-val x28 = Array("-&nbsp;-&nbsp;<a href='",x26,"'>",x27,"</a><br/>")
-val x205 = x28.length
-var x204= 0
-while (x204 < x205) {
-val x206 = x28.apply(x204)
-// prev yields ArrayBuffer(Sym(127), Sym(143), Sym(164), Sym(179), Sym(187), Sym(195))
-x151_buff += x206
-val x143 = ()
-x204 += 1
-}
-val x29 = x25.files
-val x30 = x29.length
-var x31= 0
-while (x31 < x30) {
-val x33 = x29.apply(x31)
-val x34 = x33.path
-val x35 = x33.name
-val x36 = Array("-&nbsp;-&nbsp;-&nbsp;<a href='",x34,"'>",x35,"</a><br/>")
-val x255 = x36.length
-var x254= 0
-while (x254 < x255) {
-val x256 = x36.apply(x254)
-// prev yields ArrayBuffer(Sym(127), Sym(143), Sym(164), Sym(179), Sym(187), Sym(195), Sym(214), Sym(229), Sym(237), Sym(245))
-x151_buff += x256
-val x143 = ()
-x254 += 1
-}
-val x37 = x33.files
-val x38 = x37.length
-var x39= 0
-while (x39 < x38) {
-val x41 = x37.apply(x39)
-val x42 = x41.path
-val x43 = x41.name
-val x44 = Array("-&nbsp;-&nbsp;-&nbsp;-&nbsp;<a href='",x42,"'>",x43,"</a><br/>")
-val x305 = x44.length
-var x304= 0
-while (x304 < x305) {
-val x306 = x44.apply(x304)
-// prev yields ArrayBuffer(Sym(127), Sym(143), Sym(164), Sym(179), Sym(187), Sym(195), Sym(214), Sym(229), Sym(237), Sym(245), Sym(264), Sym(279), Sym(287), Sym(295))
-x151_buff += x306
-val x143 = ()
-x304 += 1
-}
-val x45 = x41.files
-val x46 = x45.length
-var x47= 0
-while (x47 < x46) {
-val x49 = x45.apply(x47)
-val x50 = x49.path
-val x51 = x49.name
-val x52 = Array("-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;<a href='",x50,"'>",x51,"</a><br/>")
-val x321 = x52.length
-var x61= 0
-while (x61 < x321) {
-val x322 = x52.apply(x61)
-// prev yields ArrayBuffer(Sym(127), Sym(143), Sym(164), Sym(179), Sym(187), Sym(195), Sym(214), Sym(229), Sym(237), Sym(245), Sym(264), Sym(279), Sym(287), Sym(295), Sym(314), Sym(329), Sym(337))
-x151_buff += x322
-val x143 = ()
-x61 += 1
-}
-x47 += 1
-}
-val x352 = ()// x309 ++ x351
-val x299 = x352
-x39 += 1
-}
-val x302 = ()// x259 ++ x301
-val x249 = x302
-x31 += 1
-}
-val x252 = ()// x209 ++ x251
-val x199 = x252
-x23 += 1
-}
-val x202 = ()// x159 ++ x201
-val x145 = x202
-x15 += 1
-}
-val x3 = x1.path
-val x4 = x1.name
-val x5 = Array("<a href='",x3,"'>",x4,"</a><br/>")
-val x6 = x5.length
-var x7= 0
-while (x7 < x6) {
-val x9 = x5.apply(x7)
-// Sym(10)yield Map(Sym(10) -> <function1>)previous 
-x151_buff += x9
-val x10 = ()
-x7 += 1
-}
-val x151 = x151_buff.result
-x151
-}
+    val x133 = Array("</body></html>")
+    val x1 = file
+    val x13 = x1.files
+    val x14 = x13.length
+    val x151_buff = new scala.collection.mutable.ArrayBuffer[java.lang.String]
+    var x15 = 0
+    while (x15 < x14) {
+      val x17 = x13.apply(x15)
+      val x18 = x17.path
+      val x19 = x17.name
+      val x20 = Array("-&nbsp;<a href='", x18, "'>", x19, "</a><br/>")
+      val x155 = x20.length
+      var x154 = 0
+      while (x154 < x155) {
+        val x156 = x20.apply(x154)
+        // prev yields ArrayBuffer(Sym(127), Sym(143))
+        x151_buff += x156
+        val x143 = ()
+        x154 += 1
+      }
+      val x21 = x17.files
+      val x22 = x21.length
+      var x23 = 0
+      while (x23 < x22) {
+        val x25 = x21.apply(x23)
+        val x26 = x25.path
+        val x27 = x25.name
+        val x28 = Array("-&nbsp;-&nbsp;<a href='", x26, "'>", x27, "</a><br/>")
+        val x205 = x28.length
+        var x204 = 0
+        while (x204 < x205) {
+          val x206 = x28.apply(x204)
+          // prev yields ArrayBuffer(Sym(127), Sym(143), Sym(164), Sym(179), Sym(187), Sym(195))
+          x151_buff += x206
+          val x143 = ()
+          x204 += 1
+        }
+        val x29 = x25.files
+        val x30 = x29.length
+        var x31 = 0
+        while (x31 < x30) {
+          val x33 = x29.apply(x31)
+          val x34 = x33.path
+          val x35 = x33.name
+          val x36 = Array("-&nbsp;-&nbsp;-&nbsp;<a href='", x34, "'>", x35, "</a><br/>")
+          val x255 = x36.length
+          var x254 = 0
+          while (x254 < x255) {
+            val x256 = x36.apply(x254)
+            // prev yields ArrayBuffer(Sym(127), Sym(143), Sym(164), Sym(179), Sym(187), Sym(195), Sym(214), Sym(229), Sym(237), Sym(245))
+            x151_buff += x256
+            val x143 = ()
+            x254 += 1
+          }
+          val x37 = x33.files
+          val x38 = x37.length
+          var x39 = 0
+          while (x39 < x38) {
+            val x41 = x37.apply(x39)
+            val x42 = x41.path
+            val x43 = x41.name
+            val x44 = Array("-&nbsp;-&nbsp;-&nbsp;-&nbsp;<a href='", x42, "'>", x43, "</a><br/>")
+            val x305 = x44.length
+            var x304 = 0
+            while (x304 < x305) {
+              val x306 = x44.apply(x304)
+              // prev yields ArrayBuffer(Sym(127), Sym(143), Sym(164), Sym(179), Sym(187), Sym(195), Sym(214), Sym(229), Sym(237), Sym(245), Sym(264), Sym(279), Sym(287), Sym(295))
+              x151_buff += x306
+              val x143 = ()
+              x304 += 1
+            }
+            val x45 = x41.files
+            val x46 = x45.length
+            var x47 = 0
+            while (x47 < x46) {
+              val x49 = x45.apply(x47)
+              val x50 = x49.path
+              val x51 = x49.name
+              val x52 = Array("-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;<a href='", x50, "'>", x51, "</a><br/>")
+              val x321 = x52.length
+              var x61 = 0
+              while (x61 < x321) {
+                val x322 = x52.apply(x61)
+                // prev yields ArrayBuffer(Sym(127), Sym(143), Sym(164), Sym(179), Sym(187), Sym(195), Sym(214), Sym(229), Sym(237), Sym(245), Sym(264), Sym(279), Sym(287), Sym(295), Sym(314), Sym(329), Sym(337))
+                x151_buff += x322
+                val x143 = ()
+                x61 += 1
+              }
+              x47 += 1
+            }
+            val x352 = () // x309 ++ x351
+            val x299 = x352
+            x39 += 1
+          }
+          val x302 = () // x259 ++ x301
+          val x249 = x302
+          x31 += 1
+        }
+        val x252 = () // x209 ++ x251
+        val x199 = x252
+        x23 += 1
+      }
+      val x202 = () // x159 ++ x201
+      val x145 = x202
+      x15 += 1
+    }
+    val x3 = x1.path
+    val x4 = x1.name
+    val x5 = Array("<a href='", x3, "'>", x4, "</a><br/>")
+    val x6 = x5.length
+    var x7 = 0
+    while (x7 < x6) {
+      val x9 = x5.apply(x7)
+      // Sym(10)yield Map(Sym(10) -> <function1>)previous 
+      x151_buff += x9
+      val x10 = ()
+      x7 += 1
+    }
+    val x151 = x151_buff.result
+    x151
+  }
 
   def time2(reps: Int) = repeat(reps) {
 
