@@ -31,6 +31,18 @@ trait Input {
 
 trait FileTemplates {
   @inline
+  final def f01(f: SimpleFile) = Array("""<a href="""", f.path, "\">", f.name, "</a></br>") ++ f.files.flatMap(f02(_))
+  
+  @inline
+  final def f02(f: SimpleFile) = Array("""<a href="""", f.path, "\">", f.name, "</a></br>") ++ f.files.flatMap(f03(_))
+  
+  @inline
+  final def f03(f: SimpleFile) = Array("""<a href="""", f.path, "\">", f.name, "</a></br>") ++ f.files.flatMap(f04(_))
+  
+  @inline
+  final def f04(f: SimpleFile) = Array("""<a href="""", f.path, "\">", f.name, "</a></br>") ++ f.files.flatMap(f1(_))
+  
+  @inline
   final def f1(f: SimpleFile) = Array("""<a href="""", f.path, "\">", f.name, "</a></br>") ++ f.files.flatMap(f2(_))
 
   @inline
