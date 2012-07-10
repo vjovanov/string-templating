@@ -25,7 +25,7 @@ trait Input {
           if (level != 0) (0 until branching).map(x => parseLine(branching, level - 1)).toArray else new Array[SimpleFile](0)
       )
     }
-    parseLine(5, 7)
+    parseLine(branching, 10)
   }
 }
 
