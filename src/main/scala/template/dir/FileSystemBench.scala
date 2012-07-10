@@ -25,7 +25,7 @@ class FileSystemBench extends SimpleScalaBenchmark with FileTemplates with Input
   override def setUp() {
     if (file == null)
       //        file = parse("/home/vojin/fs")
-      file = parseIdealTree(7, 8)
+      file = parseIdealTree(3, 7)
   }
 
   

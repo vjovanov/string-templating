@@ -22,7 +22,7 @@ trait Input {
     def parseLine(branching: Int, level: Int): SimpleFile = {
       SimpleFile("fname",
           "/fname",
-          if (level != 0) (0 until branching).map(x => parseLine(branching, level - 1)).toArray else new Array[SimpleFile](0)
+          if (level != 0) (0 until branching).map(x => parseLine(branching, level - 1)).toArray else null
       )
     }
     parseLine(branching, level)
