@@ -25,12 +25,12 @@ class FileSystemBench extends SimpleScalaBenchmark with FileTemplates with Input
   override def setUp() {
     if (file == null)
       //        file = parse("/home/vojin/fs")
-      file = parseIdealTree(5)
+      file = parseIdealTree(7, 8)
   }
 
   
   
-  def timeL10S(reps: Int) = repeat(reps) {
+/*  def timeL10S(reps: Int) = repeat(reps) {
     val res = Array("""<html><body>""") ++ f01(file) ++ Array("""</body></html>""")
     res
   }
@@ -51,7 +51,7 @@ class FileSystemBench extends SimpleScalaBenchmark with FileTemplates with Input
   def timeL9(reps: Int) = repeat(reps) { val x = new timeL9C; val r = x.apply(()); r }
 
   
-  
+  */
   def timeL8S(reps: Int) = repeat(reps) {
     val res = Array("""<html><body>""") ++ f03(file) ++ Array("""</body></html>""")
     res

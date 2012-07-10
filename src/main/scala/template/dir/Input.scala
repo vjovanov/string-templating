@@ -17,15 +17,15 @@ trait Input {
     parseLine(line)
   }
 
-  def parseIdealTree(branching: Int) = {
+  def parseIdealTree(branching: Int, level: Int) = {
 
     def parseLine(branching: Int, level: Int): SimpleFile = {
-      SimpleFile("file-name",
-          "/the/path/to/file/file-name",
+      SimpleFile("fname",
+          "/fname",
           if (level != 0) (0 until branching).map(x => parseLine(branching, level - 1)).toArray else new Array[SimpleFile](0)
       )
     }
-    parseLine(branching, 10)
+    parseLine(branching, level)
   }
 }
 

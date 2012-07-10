@@ -43,7 +43,7 @@ class FSL6 extends SimpleScalaBenchmark with FileTemplates with Input {
   override def setUp() {
     if (file == null)
       //      file = parse("/home/vojin/fs")
-      file = parseIdealTree(8)
+      file = parseIdealTree(8, 7)
   }
 
   def timeL2Fused(reps: Int) = repeat(reps) {
