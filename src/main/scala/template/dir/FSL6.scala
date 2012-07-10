@@ -42,14 +42,134 @@ class FSL6 extends SimpleScalaBenchmark with FileTemplates with Input {
 
   override def setUp() {
     if (file == null)
-//      file = parse("/home/vojin/fs")
-      file = parseIdealTree(5)
-    println(file)
+      //      file = parse("/home/vojin/fs")
+      file = parseIdealTree(8)
   }
 
   def timeL6(reps: Int) = repeat(reps) {
     val res = Array("""<html><body>""") ++ f1(file) ++ Array("""</body></html>""")
-    println(res.length)
+    res
+  }
+
+  def timeL5(reps: Int) = repeat(reps) {
+    val res = Array("""<html><body>""") ++ f2(file) ++ Array("""</body></html>""")
+    res
+  }
+
+  def timeL4(reps: Int) = repeat(reps) {
+    val res = Array("""<html><body>""") ++ f3(file) ++ Array("""</body></html>""")
+    res
+  }
+
+  def timeL3(reps: Int) = repeat(reps) {
+    val res = Array("""<html><body>""") ++ f4(file) ++ Array("""</body></html>""")
+    res
+  }
+
+  def timeL2(reps: Int) = repeat(reps) {
+    val res = Array("""<html><body>""") ++ f5(file) ++ Array("""</body></html>""")
+    res
+  }
+
+  /*def timeL2Fused(reps: Int) = repeat(reps) {
+    val b = new scala.collection.mutable.ArrayBuffer[String]
+    b += """<html><body>"""
+    val f4 = file
+    var i5 = 0
+    val f5size = f4.files.length
+    f5Pre(b, f4)
+    while (i5 < f5size) {
+      f6Pre(b, f4.files(i5))
+      i5 += 1
+    }
+    b += """</body></html>"""
+    L2F = b.toArray
+    b
+  }
+  def timeL3Fused(reps: Int) = repeat(reps) {
+    val b = new scala.collection.mutable.ArrayBuffer[String]
+    b += """<html><body>"""
+    val f3 = file
+    var i4 = 0
+    val f4size = f3.files.length
+    while (i4 < f4size) {
+      val f4 = f3.files(i4)
+      var i5 = 0
+      val f5size = f4.files.length
+      f5Pre(b, f4)
+      while (i5 < f5size) {
+        f6Pre(b, f4.files(i5))
+        i5 += 1
+      }
+      i4 += 1
+    }
+    b += """</body></html>"""
+    L3F = b.toArray
+    b
+  }
+  def timeL4Fused(reps: Int) = repeat(reps) {
+    val b = new scala.collection.mutable.ArrayBuffer[String]
+    b += """<html><body>"""
+    val f2 = file
+    var i3 = 0
+    val f3size = f2.files.length
+    f3Pre(b, f2)
+    while (i3 < f3size) {
+      val f3 = f2.files(i3)
+      var i4 = 0
+      val f4size = f3.files.length
+      f4Pre(b, f3)
+      while (i4 < f4size) {
+        val f4 = f3.files(i4)
+        var i5 = 0
+        val f5size = f4.files.length
+        f5Pre(b, f4)
+        while (i5 < f5size) {
+          f6Pre(b, f4.files(i5))
+          i5 += 1
+        }
+        i4 += 1
+      }
+      i3 += 1
+    }
+    L4F = b.toArray
+    b
+  }
+  def timeL5Fused(reps: Int) = repeat(reps) {
+    val b = new scala.collection.mutable.ArrayBuffer[String]
+    b += """<html><body>"""
+    val f1 = file
+    var i2 = 0
+    val f2size = f1.files.length
+    f2Pre(b, f1)
+    while (i2 < f2size) {
+      val f2 = f1.files(i2)
+      var i3 = 0
+      val f3size = f2.files.length
+      f3Pre(b, f2)
+      while (i3 < f3size) {
+        val f3 = f2.files(i3)
+        var i4 = 0
+        val f4size = f3.files.length
+        f4Pre(b, f3)
+        while (i4 < f4size) {
+          val f4 = f3.files(i4)
+          var i5 = 0
+          val f5size = f4.files.length
+          f5Pre(b, f4)
+          while (i5 < f5size) {
+            f6Pre(b, f4.files(i5))
+            i5 += 1
+          }
+          i4 += 1
+        }
+        i3 += 1
+      }
+      i2 += 1
+    }
+    b += """</body></html>"""
+    L5F = b.toArray
+    b
   }
 
   def timeL6Fused(reps: Int) = repeat(reps) {
@@ -94,146 +214,22 @@ class FSL6 extends SimpleScalaBenchmark with FileTemplates with Input {
     b += """</body></html>"""
     L6F = b.toArray
     b.toArray
-  }
-
-  def timeL5(reps: Int) = repeat(reps) {
-    val res = Array("""<html><body>""") ++ f2(file) ++ Array("""</body></html>""")
-    L6 = res
-  }
-
-  def timeL5Fused(reps: Int) = repeat(reps) {
-    val b = new scala.collection.mutable.ArrayBuffer[String]
-    b += """<html><body>"""
-    val f1 = file
-    var i2 = 0
-    val f2size = f1.files.length
-    f2Pre(b, f1)
-    while (i2 < f2size) {
-      val f2 = f1.files(i2)
-      var i3 = 0
-      val f3size = f2.files.length
-      f3Pre(b, f2)
-      while (i3 < f3size) {
-        val f3 = f2.files(i3)
-        var i4 = 0
-        val f4size = f3.files.length
-        f4Pre(b, f3)
-        while (i4 < f4size) {
-          val f4 = f3.files(i4)
-          var i5 = 0
-          val f5size = f4.files.length
-          f5Pre(b, f4)
-          while (i5 < f5size) {
-            f6Pre(b, f4.files(i5))
-            i5 += 1
-          }
-          i4 += 1
-        }
-        i3 += 1
-      }
-      i2 += 1
-    }
-    b += """</body></html>"""
-    L5F = b.toArray
-    b
-  }
-
-  def timeL4(reps: Int) = repeat(reps) {
-    val res = Array("""<html><body>""") ++ f3(file) ++ Array("""</body></html>""")
-    L4 = res
-  }
-
-  def timeL4Fused(reps: Int) = repeat(reps) {
-    val b = new scala.collection.mutable.ArrayBuffer[String]
-    b += """<html><body>"""
-    val f2 = file
-    var i3 = 0
-    val f3size = f2.files.length
-    f3Pre(b, f2)
-    while (i3 < f3size) {
-      val f3 = f2.files(i3)
-      var i4 = 0
-      val f4size = f3.files.length
-      f4Pre(b, f3)
-      while (i4 < f4size) {
-        val f4 = f3.files(i4)
-        var i5 = 0
-        val f5size = f4.files.length
-        f5Pre(b, f4)
-        while (i5 < f5size) {
-          f6Pre(b, f4.files(i5))
-          i5 += 1
-        }
-        i4 += 1
-      }
-      i3 += 1
-    }
-    L4F = b.toArray
-    b
-  }
-
-  def timeL3(reps: Int) = repeat(reps) {
-    val res = Array("""<html><body>""") ++ f4(file) ++ Array("""</body></html>""")
-    L3 = res
-  }
-
-  def timeL3Fused(reps: Int) = repeat(reps) {
-    val b = new scala.collection.mutable.ArrayBuffer[String]
-    b += """<html><body>"""
-    val f3 = file
-    var i4 = 0
-    val f4size = f3.files.length
-    while (i4 < f4size) {
-      val f4 = f3.files(i4)
-      var i5 = 0
-      val f5size = f4.files.length
-      f5Pre(b, f4)
-      while (i5 < f5size) {
-        f6Pre(b, f4.files(i5))
-        i5 += 1
-      }
-      i4 += 1
-    }
-    b += """</body></html>"""
-    L3F = b.toArray
-    b
-  }
-
-  def timeL2(reps: Int) = repeat(reps) {
-    val res = Array("""<html><body>""") ++ f5(file) ++ Array("""</body></html>""")
-    L2 = res
-  }
-
-  def timeL2Fused(reps: Int) = repeat(reps) {
-    val b = new scala.collection.mutable.ArrayBuffer[String]
-    b += """<html><body>"""
-    val f4 = file
-    var i5 = 0
-    val f5size = f4.files.length
-    f5Pre(b, f4)
-    while (i5 < f5size) {
-      f6Pre(b, f4.files(i5))
-      i5 += 1
-    }
-    b += """</body></html>"""
-    L2F = b.toArray
-    b
-  }
-
-//  def timeL1(reps: Int) = repeat(reps) {
-//    val res = Array("""<html><body>""") ++ f6(file) ++ Array("""</body></html>""")
-//    L1 = res.toArray
-//  }
-//
-//  def timeL1Fused(reps: Int) = repeat(reps) {
-//    val b = new scala.collection.mutable.ArrayBuffer[String]
-//    b += """<html><body>"""
-//
-//    val f5 = file
-//    f6Pre(b, f5)
-//    L1F = b.toArray
-//    b += """</body></html>"""
-//    b
-//  }
+  }*/
+  
+  //  def timeL1(reps: Int) = repeat(reps) {
+  //    val res = Array("""<html><body>""") ++ f6(file) ++ Array("""</body></html>""")
+  //    L1 = res.toArray
+  //  }
+  //
+  //  def timeL1Fused(reps: Int) = repeat(reps) {
+  //    val b = new scala.collection.mutable.ArrayBuffer[String]
+  //    b += """<html><body>"""
+  //
+  //    val f5 = file
+  //    f6Pre(b, f5)
+  //    L1F = b.toArray
+  //    b += """</body></html>"""
+  //    b
+  //  }
 
 }
